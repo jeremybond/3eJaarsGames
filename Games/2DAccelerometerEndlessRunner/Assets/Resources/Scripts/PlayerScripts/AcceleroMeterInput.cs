@@ -3,29 +3,33 @@ using System.Collections;
 
 public class AcceleroMeterInput : MonoBehaviour {
 
-	Vector3 movementVector = new Vector3(1, 0, 0);
-	void Start () {
-		StartCoroutine(AcceleratingCheck());
+	private Vector3 accelerationInput;
+	private Vector3 Speed = new Vector3(0.08f, 0, 0);
 
+	void Update () {
+		accelerationInput = Input.acceleration;
 	}
 
-	IEnumerator AcceleratingCheck()
+	void Start()
 	{
-		if(Input.acceleration.x >= -1f && Input.acceleration.x <= 1f)
+		StartCoroutine(CheckNewPos());
+	}
+
+	IEnumerator CheckNewPos(){
+		MovePlayer();
+		yield return new WaitForSeconds(0.002f);
+		StartCoroutine(CheckNewPos());
+	}
+
+	private void MovePlayer()
+	{
+		if(accelerationInput.x < -0.2f && transform.position.x > -3)
 		{
-			//Debug.Log(Input.acceleration.x);
-			if(Input.acceleration.x <= -0.6f && transform.position.x >= -2) 
-			{
-				transform.position -= movementVector;
-				yield return new WaitForSeconds(0.1f);
-			} 
-			if(Input.acceleration.x >= 0.6f && transform.position.x <= 2) 
-			{
-				transform.position += movementVector;
-				yield return new WaitForSeconds(0.1f);
-			}
+
+			transform.position -= -accelerationInput.x * Speed;
+		}else if(accelerationInput.x > 0.2f && transform.position.x < 3)
+		{
+			transform.position += accelerationInput.x * Speed;
 		}
-		yield return null;
-		StartCoroutine(AcceleratingCheck());
 	}
 }

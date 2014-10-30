@@ -2,12 +2,11 @@
 using System.Collections;
 
 public class ObstacleMovement : MonoBehaviour {
+	float downForce;
 
-	void Update () {
-		transform.position -= new Vector3(0, 0.05f, 0);
-		if(transform.position.y <= -10)
-		{
-			Destroy(this.gameObject);
-		}
+	void FixedUpdate () {
+		float score = (IngameGui.totalScore / 15000);
+		downForce = (score + 3);
+		rigidbody.velocity = new Vector3(0, -downForce, 0);
 	}
 }

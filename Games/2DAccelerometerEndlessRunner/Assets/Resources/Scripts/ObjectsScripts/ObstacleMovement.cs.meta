@@ -2,7 +2,8 @@ fileFormatVersion: 2
 guid: b6ef25143bd0ff64f9a3a23dc17dc077
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - InGameGUI: {fileID: 100000, guid: dfa97acb2c9090045952735fb2c10000, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
